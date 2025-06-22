@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>3D Product Viewer</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Info panel for showing part names on click -->
+    <div id="info-panel"></div>
+
+    <script type="module">
+      import { initScene } from './scripts/initScene.js';
+      import { createProduct } from './scripts/createProduct.js';
+      import { addLighting } from './scripts/addLighting.js';
+      import { setupInteraction } from './scripts/interaction.js';
+      import { animateCamera } from './scripts/cameraAnimation.js';
+
+      const { scene, camera, renderer, controls } = initScene();
+      const productParts = createProduct(scene);
+      addLighting(scene);
+      setupInteraction(renderer, camera, scene, productParts);
+      animateCamera(camera, controls);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
